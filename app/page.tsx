@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState<'overview' | 'certificates' | 'skills' | 'experience' | 'contact'>('overview')
+  const [activeTab, setActiveTab] = useState<'overview' | 'certificates' | 'skills' | 'experience' | 'contact'>('certificates')
   const [selectedCertCategory, setSelectedCertCategory] = useState<string>('all')
   const [mounted, setMounted] = useState(false)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
@@ -17,9 +17,9 @@ export default function Home() {
     return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
-  // Lista Zyrtare me 15 Certifikatat - Emrat Saktë të Fajllave te Folderi Public
-  const certificates = [
-    { id: 1, title: "Ethical Hacker", category: "security", issuer: "Cisco Networking Academy", date: "2026", fileName: "EthicalHackerUpdate20261013-22-6ra41r.pdf", tags: ["Pentesting", "Vulnerability Assessment", "Cyber Defense"] },
+  // Lista Zyrtare me 15 Certifikatat dhe Emrat ekzakte të Fajllave PDF
+  const rawCertificates = [
+    { id: 1, title: "Ethical Hacker", category: "security", issuer: "Cisco Networking Academy", date: "2026", fileName: "EthicalHackerUpdate20261013-22-6ra41r.pdf", tags: ["Pentesting", "Security Assessment", "Cyber Defense"] },
     { id: 2, title: "Computer Hardware Basics", category: "hardware", issuer: "Cisco Networking Academy", date: "2026", fileName: "Computer_Hardware_Basics_certificate_egzon-kalisi-ykc-edu-mk_469ff077-9288-4c8b-a4fa-786d56e996a9.pdf", tags: ["Hardware Assembly L2", "PC Diagnostics", "Component Repair"] },
     { id: 3, title: "Basic Concepts of Cryptography", category: "security", issuer: "EIT Digital & ELTE Faculty", date: "2026", fileName: "egzonkalisi-Basic-Concepts-of-Cryptography-Basic-Certificate-Basic-concepts-of-cryptography-28DIGITAL-EA-Online-Courses_2.pdf", tags: ["RSA Encryption", "Hash Functions", "Digital Signatures"] },
     { id: 4, title: "CS406: Information Security", category: "security", issuer: "Saylor Academy / University", date: "2026", fileName: "certification egzon kalisi  Information Security.pdf", tags: ["Access Control", "Risk Assessment", "Data Protection"] },
@@ -36,17 +36,21 @@ export default function Home() {
     { id: 15, title: "IT Service & Help Desk Management", category: "hardware", issuer: "Global IT Institute", date: "2024", fileName: "Computer_Hardware_Basics_certificate_egzon-kalisi-ykc-edu-mk_469ff077-9288-4c8b-a4fa-786d56e996a9.pdf", tags: ["User Support", "SLA Management", "Asset Tracking"] }
   ]
 
-  // Pozicionet Zyrtare Profesionale
+  // Rregullimi i saktë i linqeve për çdo shfletues
+  const certificates = rawCertificates.map(cert => ({
+    ...cert,
+    pdfPath: "/" + encodeURIComponent(cert.fileName)
+  }))
+
   const officialTitles = [
     "IT Support Specialist",
     "Help Desk Support",
     "Junior Network Engineer (L1)",
     "Hardware Maintenance & Diagnostics (L2)",
     "Web Administrator",
-    "Cybersecurity & Cryptography Practitioner"
+    "Cybersecurity Practitioner"
   ]
 
-  // Aftësitë e Pasuruara
   const skillCategories = [
     {
       category: "🛠️ IT SUPPORT & HELP DESK SPECIALIST",
@@ -87,7 +91,6 @@ export default function Home() {
     }
   ]
 
-  // Përvoja e Punës
   const experiences = [
     { title: "Major Gaming Center", role: "Manager & Lead IT Tech", period: "Shkup / Skopje", desc: "Menaxhimi i infrastrukturës teknike: Mirëmbajtja e dhjetëra kompjuterave të fuqishëm, rrjeti LAN/Switching, serverët lokalë dhe zgjidhja e avarive teknike." },
     { title: "Yahya Kemal College", role: "IT Support & Network Specialist", period: "Institucion Arsimor", desc: "Mirëmbajtja e rrjetit të shkollës, laboratorët IT, serverët dhe asistenca teknike për stafin dhe nxënësit." },
@@ -96,12 +99,6 @@ export default function Home() {
     { title: "Orange Films Studio / Studio Graff", role: "Media Specialist & Photographer", period: "Digital Production", desc: "Retushim digjital i fotografive, montazh profesional i videove dhe menaxhim i pajisjeve teknike." },
     { title: "Call Center Skopje / Grey System", role: "Systems Support Specialist", period: "IT Operations", desc: "Konfigurimi i sistemeve operative, optimizimi i kompjuterave dhe mbështetja teknike për stafin." }
   ]
-
-  // Funksioni që hap sigurt çdo PDF pa marrë parasysh hapësirat në emër
-  const openPdf = (fileName: string) => {
-    const encodedPath = "/" + encodeURIComponent(fileName)
-    window.open(encodedPath, "_blank")
-  }
 
   const filteredCerts = selectedCertCategory === 'all' 
     ? certificates 
@@ -112,7 +109,7 @@ export default function Home() {
   return (
     <div style={{ backgroundColor: "#020204", color: "#f8fafc", minHeight: "100vh", width: "100%", fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif", boxSizing: "border-box", overflowX: "hidden", margin: 0, padding: "20px" }}>
       
-      {/* GLOBAL NO-BORDER STYLES */}
+      {/* ANIMATED SMOKE / FOG STYLES */}
       <style jsx global>{`
         html, body {
           margin: 0 !important;
@@ -120,25 +117,30 @@ export default function Home() {
           background-color: #020204 !important;
           overflow-x: hidden !important;
         }
-        @keyframes floatSmoke {
-          0% { transform: translateY(0px) scale(1); opacity: 0.15; }
-          50% { transform: translateY(-30px) scale(1.1); opacity: 0.25; }
-          100% { transform: translateY(0px) scale(1); opacity: 0.15; }
+        @keyframes smokeFlowLeft {
+          0% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.18; }
+          50% { transform: translateY(-40px) rotate(5deg) scale(1.12); opacity: 0.28; }
+          100% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.18; }
+        }
+        @keyframes smokeFlowRight {
+          0% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.15; }
+          50% { transform: translateY(-50px) rotate(-6deg) scale(1.15); opacity: 0.25; }
+          100% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.15; }
         }
       `}</style>
 
-      {/* CURSOR LIGHT GLOW */}
+      {/* LIGHT CURSOR GLOW */}
       <div style={{ position: "fixed", top: mousePos.y - 120, left: mousePos.x - 120, width: "240px", height: "240px", backgroundColor: "rgba(168, 85, 247, 0.12)", filter: "blur(90px)", pointerEvents: "none", borderRadius: "50%", zIndex: 1 }} />
 
-      {/* FLOATING SMOKE / FOG EFFECTS ON EDGES */}
-      <div style={{ position: "fixed", top: "10%", left: "-150px", width: "450px", height: "600px", background: "radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, rgba(0, 0, 0, 0) 70%)", filter: "blur(90px)", pointerEvents: "none", zIndex: 1, animation: "floatSmoke 8s infinite ease-in-out" }} />
-      <div style={{ position: "fixed", bottom: "10%", right: "-150px", width: "450px", height: "600px", background: "radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, rgba(0, 0, 0, 0) 70%)", filter: "blur(90px)", pointerEvents: "none", zIndex: 1, animation: "floatSmoke 10s infinite ease-in-out reverse" }} />
+      {/* AMBIENT SMOKE LAYERS ON EDGES (DOES NOT COVER TEXT) */}
+      <div style={{ position: "fixed", top: "5%", left: "-180px", width: "500px", height: "700px", background: "radial-gradient(circle, rgba(168, 85, 247, 0.22) 0%, rgba(2, 2, 4, 0) 70%)", filter: "blur(100px)", pointerEvents: "none", zIndex: 1, animation: "smokeFlowLeft 12s infinite ease-in-out" }} />
+      <div style={{ position: "fixed", bottom: "5%", right: "-180px", width: "500px", height: "700px", background: "radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, rgba(2, 2, 4, 0) 70%)", filter: "blur(100px)", pointerEvents: "none", zIndex: 1, animation: "smokeFlowRight 14s infinite ease-in-out" }} />
 
-      {/* HEADER WITH CLEAN LOGO */}
+      {/* HEADER SECTION */}
       <header style={{ position: "relative", zIndex: 10, display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid rgba(255,255,255,0.08)", paddingBottom: "18px", marginBottom: "35px", flexWrap: "wrap", gap: "15px", maxWidth: "1200px", margin: "0 auto 35px auto" }}>
         
         <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-          <div style={{ width: "44px", height: "44px", borderRadius: "10px", backgroundColor: "#09090b", border: "1px solid rgba(168, 85, 247, 0.5)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "800", color: "#a855f7", fontSize: "16px", boxShadow: "0 0 15px rgba(168, 85, 247, 0.3)" }}>
+          <div style={{ width: "42px", height: "42px", borderRadius: "10px", backgroundColor: "#09090b", border: "1px solid rgba(168, 85, 247, 0.5)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "800", color: "#a855f7", fontSize: "15px", boxShadow: "0 0 15px rgba(168, 85, 247, 0.3)" }}>
             EK
           </div>
           <div>
@@ -165,7 +167,7 @@ export default function Home() {
       <section style={{ position: "relative", zIndex: 10, textAlign: "center", padding: "20px 10px 40px 10px", maxWidth: "1200px", margin: "0 auto" }}>
         
         <div style={{ color: "#c084fc", fontSize: "12px", fontWeight: "800", letterSpacing: "4px", marginBottom: "12px", textTransform: "uppercase" }}>
-          OFFICIAL IT PROFESSIONAL PORTFOLIO
+          OFFICIAL IT PROFESSIONAL ARCHIVE
         </div>
 
         <h2 style={{ fontSize: "clamp(38px, 6vw, 68px)", fontWeight: "900", margin: "0 0 20px 0", color: "#ffffff", letterSpacing: "-1.5px", textShadow: "0 0 35px rgba(168, 85, 247, 0.4)" }}>
@@ -183,11 +185,11 @@ export default function Home() {
 
         {/* NAVIGATION BUTTONS */}
         <div style={{ display: "flex", justifyContent: "center", gap: "10px", flexWrap: "wrap", maxWidth: "900px", margin: "0 auto" }}>
-          <button onClick={() => setActiveTab('overview')} style={{ backgroundColor: activeTab === 'overview' ? "#a855f7" : "rgba(255,255,255,0.05)", color: "#ffffff", border: "1px solid " + (activeTab === 'overview' ? "#a855f7" : "rgba(255,255,255,0.15)"), padding: "12px 22px", borderRadius: "8px", cursor: "pointer", fontSize: "12px", fontWeight: "800" }}>
-            Pasqyra Kryesore
-          </button>
           <button onClick={() => setActiveTab('certificates')} style={{ backgroundColor: activeTab === 'certificates' ? "#10b981" : "rgba(255,255,255,0.05)", color: "#ffffff", border: "1px solid " + (activeTab === 'certificates' ? "#10b981" : "rgba(255,255,255,0.15)"), padding: "12px 22px", borderRadius: "8px", cursor: "pointer", fontSize: "12px", fontWeight: "800" }}>
             Certifikatat Zyrtare ({certificates.length})
+          </button>
+          <button onClick={() => setActiveTab('overview')} style={{ backgroundColor: activeTab === 'overview' ? "#a855f7" : "rgba(255,255,255,0.05)", color: "#ffffff", border: "1px solid " + (activeTab === 'overview' ? "#a855f7" : "rgba(255,255,255,0.15)"), padding: "12px 22px", borderRadius: "8px", cursor: "pointer", fontSize: "12px", fontWeight: "800" }}>
+            Pasqyra Kryesore
           </button>
           <button onClick={() => setActiveTab('skills')} style={{ backgroundColor: activeTab === 'skills' ? "#2563eb" : "rgba(255,255,255,0.05)", color: "#ffffff", border: "1px solid " + (activeTab === 'skills' ? "#2563eb" : "rgba(255,255,255,0.15)"), padding: "12px 22px", borderRadius: "8px", cursor: "pointer", fontSize: "12px", fontWeight: "800" }}>
             Skills & Aftësitë Teknike
@@ -201,40 +203,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* OVERVIEW TAB */}
-      {activeTab === 'overview' && (
-        <section style={{ position: "relative", zIndex: 10, maxWidth: "1100px", margin: "35px auto" }}>
-          <div style={{ backgroundColor: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "16px", padding: "30px", backdropFilter: "blur(12px)" }}>
-            
-            <h3 style={{ fontSize: "22px", margin: "0 0 15px 0", color: "#c4b5fd", fontWeight: "800" }}>
-              Rreth Egzon Kalisit // Professional Overview
-            </h3>
-
-            <p style={{ fontSize: "14px", lineHeight: "1.8", color: "#cbd5e1", margin: "0 0 25px 0" }}>
-              Jam me bazë në Shkup dhe zotëroj përvojë profesionale në fushat e <strong>IT Support Specialist & Help Desk</strong>, <strong>Junior Network Engineer (L1) & Web Administrator</strong>, si dhe <strong>Hardware Maintenance & Assembly (L2)</strong>. Zotëroj 15 certifikata zyrtare kompjuterike nga institucione si <i>Cisco Networking Academy</i>, <i>EIT Digital</i> dhe <i>Saylor Academy / University</i>.
-            </p>
-
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px" }}>
-              <div style={{ backgroundColor: "rgba(168, 85, 247, 0.1)", border: "1px solid rgba(168, 85, 247, 0.25)", padding: "20px", borderRadius: "12px" }}>
-                <h4 style={{ margin: "0 0 10px 0", color: "#c4b5fd", fontSize: "15px" }}>🛠️ Help Desk & Hardware Support (L2)</h4>
-                <p style={{ margin: 0, fontSize: "12px", color: "#94a3b8", lineHeight: "1.6" }}>
-                  Diagnozë kompjuterike në nivel hardware, montim kompjuterësh, zgjidhje problemesh softuerike dhe asistencë teknike për përdoruesit.
-                </p>
-              </div>
-
-              <div style={{ backgroundColor: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.25)", padding: "20px", borderRadius: "12px" }}>
-                <h4 style={{ margin: "0 0 10px 0", color: "#34d399", fontSize: "15px" }}>🌐 Network L1 & Web Administration</h4>
-                <p style={{ margin: 0, fontSize: "12px", color: "#94a3b8", lineHeight: "1.6" }}>
-                  Konfigurimi i switch-ave/router-ave Cisco, protokollat TCP/IP, administrimi i ueb-serverëve (cPanel, Nginx), DNS dhe SSL.
-                </p>
-              </div>
-            </div>
-
-          </div>
-        </section>
-      )}
-
-      {/* CERTIFICATES TAB */}
+      {/* CERTIFICATES TAB (DIRECT HTML LINK FIX FOR 100% RELIABLE OPENING) */}
       {activeTab === 'certificates' && (
         <section style={{ position: "relative", zIndex: 10, maxWidth: "1200px", margin: "35px auto" }}>
           
@@ -280,16 +249,52 @@ export default function Home() {
                   </div>
                 </div>
 
-                <button 
-                  onClick={() => openPdf(cert.fileName)}
-                  style={{ width: "100%", background: "#10b981", color: "#ffffff", border: "none", padding: "10px", borderRadius: "8px", cursor: "pointer", fontSize: "12px", fontWeight: "800", boxShadow: "0 0 12px rgba(16, 185, 129, 0.3)" }}
+                {/* NATIVE ANCHOR TAG THAT SHYPASSES POPUP BLOCKERS */}
+                <a 
+                  href={cert.pdfPath}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ display: "block", textAlign: "center", background: "#10b981", color: "#ffffff", textDecoration: "none", border: "none", padding: "10px", borderRadius: "8px", fontSize: "12px", fontWeight: "800", boxShadow: "0 0 12px rgba(16, 185, 129, 0.3)" }}
                 >
                   [ HAP CERTIFIKATËN PDF ↗ ]
-                </button>
+                </a>
               </div>
             ))}
           </div>
 
+        </section>
+      )}
+
+      {/* OVERVIEW TAB */}
+      {activeTab === 'overview' && (
+        <section style={{ position: "relative", zIndex: 10, maxWidth: "1100px", margin: "35px auto" }}>
+          <div style={{ backgroundColor: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "16px", padding: "30px", backdropFilter: "blur(12px)" }}>
+            
+            <h3 style={{ fontSize: "22px", margin: "0 0 15px 0", color: "#c4b5fd", fontWeight: "800" }}>
+              Rreth Egzon Kalisit // Professional Overview
+            </h3>
+
+            <p style={{ fontSize: "14px", lineHeight: "1.8", color: "#cbd5e1", margin: "0 0 25px 0" }}>
+              Jam me bazë në Shkup dhe zotëroj përvojë profesionale në fushat e <strong>IT Support Specialist & Help Desk</strong>, <strong>Junior Network Engineer (L1) & Web Administrator</strong>, si dhe <strong>Hardware Maintenance & Assembly (L2)</strong>. Zotëroj 15 certifikata zyrtare kompjuterike nga institucione si <i>Cisco Networking Academy</i>, <i>EIT Digital</i> dhe <i>Saylor Academy / University</i>.
+            </p>
+
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px" }}>
+              <div style={{ backgroundColor: "rgba(168, 85, 247, 0.1)", border: "1px solid rgba(168, 85, 247, 0.25)", padding: "20px", borderRadius: "12px" }}>
+                <h4 style={{ margin: "0 0 10px 0", color: "#c4b5fd", fontSize: "15px" }}>🛠️ Help Desk & Hardware Support (L2)</h4>
+                <p style={{ margin: 0, fontSize: "12px", color: "#94a3b8", lineHeight: "1.6" }}>
+                  Diagnozë kompjuterike në nivel hardware, montim kompjuterësh, zgjidhje problemesh softuerike dhe asistencë teknike për përdoruesit.
+                </p>
+              </div>
+
+              <div style={{ backgroundColor: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.25)", padding: "20px", borderRadius: "12px" }}>
+                <h4 style={{ margin: "0 0 10px 0", color: "#34d399", fontSize: "15px" }}>🌐 Network L1 & Web Administration</h4>
+                <p style={{ margin: 0, fontSize: "12px", color: "#94a3b8", lineHeight: "1.6" }}>
+                  Konfigurimi i switch-ave/router-ave Cisco, protokollat TCP/IP, administrimi i ueb-serverëve (cPanel, Nginx), DNS dhe SSL.
+                </p>
+              </div>
+            </div>
+
+          </div>
         </section>
       )}
 
