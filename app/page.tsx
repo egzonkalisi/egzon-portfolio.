@@ -17,30 +17,24 @@ export default function Home() {
     return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [])
 
-  // Lista Zyrtare me 15 Certifikatat dhe Emrat ekzakte të Fajllave PDF
-  const rawCertificates = [
+  // Lista Zyrtare me Emrat Ekzakte të Fajllave sipas GitHub-it tënd
+  const certificates = [
     { id: 1, title: "Ethical Hacker", category: "security", issuer: "Cisco Networking Academy", date: "2026", fileName: "EthicalHackerUpdate20261013-22-6ra41r.pdf", tags: ["Pentesting", "Security Assessment", "Cyber Defense"] },
     { id: 2, title: "Computer Hardware Basics", category: "hardware", issuer: "Cisco Networking Academy", date: "2026", fileName: "Computer_Hardware_Basics_certificate_egzon-kalisi-ykc-edu-mk_469ff077-9288-4c8b-a4fa-786d56e996a9.pdf", tags: ["Hardware Assembly L2", "PC Diagnostics", "Component Repair"] },
-    { id: 3, title: "Basic Concepts of Cryptography", category: "security", issuer: "EIT Digital & ELTE Faculty", date: "2026", fileName: "egzonkalisi-Basic-Concepts-of-Cryptography-Basic-Certificate-Basic-concepts-of-cryptography-28DIGITAL-EA-Online-Courses_2.pdf", tags: ["RSA Encryption", "Hash Functions", "Digital Signatures"] },
-    { id: 4, title: "CS406: Information Security", category: "security", issuer: "Saylor Academy / University", date: "2026", fileName: "certification egzon kalisi  Information Security.pdf", tags: ["Access Control", "Risk Assessment", "Data Protection"] },
-    { id: 5, title: "CS402: Computer Communications & Networks", category: "network", issuer: "Saylor Academy / University", date: "2026", fileName: "CERTIFICATE EGZON KALISI Computer Communications and Networks.pdf", tags: ["TCP/IP", "Routing & Switching", "Network Protocols"] },
-    { id: 6, title: "CS401: Operating Systems", category: "systems", issuer: "Saylor Academy / University", date: "2026", fileName: "CERTIFICATE EGZON KALISI OPERATING SYSTEM.pdf", tags: ["Kernel Concepts", "Process Management", "Memory Control"] },
-    { id: 7, title: "CS301: Computer Architecture", category: "hardware", issuer: "Saylor Academy / University", date: "2026", fileName: "cERTIFICATE egzon Kalisi Computer Architecture.pdf", tags: ["Processor Design", "Instruction Sets", "Logic Gates"] },
-    { id: 8, title: "CS302: Software Engineering", category: "systems", issuer: "Saylor Academy / University", date: "2026", fileName: "Egzon Kalisi Certifikate Software Engieneering.pdf", tags: ["System Architecture", "Software Lifecycle", "Agile Principles"] },
-    { id: 9, title: "CS120: Bitcoin for Developers I", category: "security", issuer: "Saylor Academy / University", date: "2026", fileName: "Certificate egzon kalisi Bitcoin for Developers I.pdf", tags: ["Blockchain Protocol", "Cryptography", "Decentralized Systems"] },
-    { id: 10, title: "Future of Emotion AI", category: "systems", issuer: "28DIGITAL & Univ. of Turku", date: "2026", fileName: "egzonkalisi-Future-of-Emotion-AI-EMAI4EU-Certificate-Future-of-Emotion-AI-Basic-28DIGITAL-EA-Online-Courses.pdf", tags: ["Artificial Intelligence", "Emotion AI", "Machine Learning"] },
-    { id: 11, title: "Network Defense & Security Specialist", category: "network", issuer: "Cisco Networking Academy", date: "2025", fileName: "EthicalHackerUpdate20261013-22-6ra41r.pdf", tags: ["Firewalls", "IDS/IPS", "Threat Mitigation"] },
-    { id: 12, title: "Advanced Linux System Administration", category: "systems", issuer: "Linux Professional Certification", date: "2025", fileName: "CERTIFICATE EGZON KALISI OPERATING SYSTEM.pdf", tags: ["Linux CLI", "Bash Scripting", "System Security"] },
-    { id: 13, title: "Cloud Infrastructure Fundamentals", category: "systems", issuer: "Enterprise IT Academy", date: "2025", fileName: "CERTIFICATE EGZON KALISI Computer Communications and Networks.pdf", tags: ["Cloud Services", "Virtualization", "API Integration"] },
-    { id: 14, title: "Digital Forensics & Incident Response", category: "security", issuer: "Cybersec Academy", date: "2025", fileName: "certification egzon kalisi  Information Security.pdf", tags: ["Forensics", "Log Analysis", "Incident Response"] },
-    { id: 15, title: "IT Service & Help Desk Management", category: "hardware", issuer: "Global IT Institute", date: "2024", fileName: "Computer_Hardware_Basics_certificate_egzon-kalisi-ykc-edu-mk_469ff077-9288-4c8b-a4fa-786d56e996a9.pdf", tags: ["User Support", "SLA Management", "Asset Tracking"] }
+    { id: 3, title: "IT Customer Support Basics", category: "hardware", issuer: "Cisco Networking Academy", date: "2026", fileName: "IT_Customer_Support_Basics_certificate_egzon-kalisi-ykc-edu-mk_d6eec463-3ae7-4f5b-8801-f2d5160e59b1.pdf", tags: ["Help Desk Support", "Troubleshooting", "User Assistance"] },
+    { id: 4, title: "Networking Basics", category: "network", issuer: "Cisco Networking Academy", date: "2026", fileName: "Networking_Basics_certificate_egzon-kalisi-ykc-edu-mk_08273502-ba45-4b71-b2fd-bb6dfef5bcbb.pdf", tags: ["LAN/WAN", "TCP/IP", "Cisco Routers & Switches"] },
+    { id: 5, title: "Operating Systems Basics", category: "systems", issuer: "Cisco Networking Academy", date: "2026", fileName: "Operating_Systems_Basics_certificate_egzon-kalisi-ykc-edu-mk_59c0ac65-c8db-489c-abfb-659e05877e5f.pdf", tags: ["Windows / Linux Administration", "Kernel Concepts", "OS Setup"] },
+    { id: 6, title: "Introduction to IoT", category: "systems", issuer: "Cisco Networking Academy", date: "2026", fileName: "Introduction_to_IoT_certificate_egzon-kalisi-ykc-edu-mk_0f429a53-4c9c-4974-8140-775ea157653c.pdf", tags: ["Internet of Things", "Smart Systems", "Connectivity"] },
+    { id: 7, title: "Basic Concepts of Cryptography", category: "security", issuer: "EIT Digital & ELTE Faculty", date: "2026", fileName: "egzonkalisi-Basic-Concepts-of-Cryptography-Basic-Certificate-Basic-concepts-of-cryptography-28DIGITAL-EA-Online-Courses.pdf", tags: ["RSA Encryption", "Hash Functions", "Digital Signatures"] },
+    { id: 8, title: "CS406: Information Security", category: "security", issuer: "Saylor Academy / University", date: "2026", fileName: "certification egzon kalisi Information Security.pdf", tags: ["Access Control", "Risk Assessment", "Data Protection"] },
+    { id: 9, title: "CS402: Computer Communications & Networks", category: "network", issuer: "Saylor Academy / University", date: "2026", fileName: "CERTIFICATE EGZON KALISI Computer Communications and Networks.pdf", tags: ["TCP/IP", "Routing & Switching", "Protocols"] },
+    { id: 10, title: "CS401: Operating Systems", category: "systems", issuer: "Saylor Academy / University", date: "2026", fileName: "CERTIFICATE EGZON KALISI OPERATING SYSTEM.pdf", tags: ["Kernel Management", "Process Scheduling", "Memory Control"] },
+    { id: 11, title: "CS301: Computer Architecture", category: "hardware", issuer: "Saylor Academy / University", date: "2026", fileName: "cERTIFICATE egzon Kalisi Computer Architecture.pdf", tags: ["Processor Design", "Instruction Sets", "Logic Gates"] },
+    { id: 12, title: "CS302: Software Engineering", category: "systems", issuer: "Saylor Academy / University", date: "2026", fileName: "Egzon Kalisi Certifikate Software Engieneering.pdf", tags: ["System Architecture", "Software Lifecycle", "Agile"] },
+    { id: 13, title: "CS120: Bitcoin for Developers I", category: "security", issuer: "Saylor Academy / University", date: "2026", fileName: "Certificate egzon kalisi Bitcoin for Developers I.pdf", tags: ["Blockchain Protocol", "Cryptography", "Decentralized Systems"] },
+    { id: 14, title: "Future of Emotion AI", category: "systems", issuer: "28DIGITAL & Univ. of Turku", date: "2026", fileName: "egzonkalisi-Future-of-Emotion-AI-EMAI4EU-Certificate-Future-of-Emotion-AI-Basic-28DIGITAL-EA-Online-Courses.pdf", tags: ["Artificial Intelligence", "Emotion AI", "Machine Learning"] },
+    { id: 15, title: "Introduction to IoT (Advanced Update)", category: "systems", issuer: "Cisco Networking Academy", date: "2026", fileName: "IntrotoIoTUpdate20261013-22-x5wc81.pdf", tags: ["IoT Infrastructure", "Smart Devices", "Sensors & APIs"] }
   ]
-
-  // Rregullimi i saktë i linqeve për çdo shfletues
-  const certificates = rawCertificates.map(cert => ({
-    ...cert,
-    pdfPath: "/" + encodeURIComponent(cert.fileName)
-  }))
 
   const officialTitles = [
     "IT Support Specialist",
@@ -132,7 +126,7 @@ export default function Home() {
       {/* LIGHT CURSOR GLOW */}
       <div style={{ position: "fixed", top: mousePos.y - 120, left: mousePos.x - 120, width: "240px", height: "240px", backgroundColor: "rgba(168, 85, 247, 0.12)", filter: "blur(90px)", pointerEvents: "none", borderRadius: "50%", zIndex: 1 }} />
 
-      {/* AMBIENT SMOKE LAYERS ON EDGES (DOES NOT COVER TEXT) */}
+      {/* AMBIENT SMOKE LAYERS ON EDGES */}
       <div style={{ position: "fixed", top: "5%", left: "-180px", width: "500px", height: "700px", background: "radial-gradient(circle, rgba(168, 85, 247, 0.22) 0%, rgba(2, 2, 4, 0) 70%)", filter: "blur(100px)", pointerEvents: "none", zIndex: 1, animation: "smokeFlowLeft 12s infinite ease-in-out" }} />
       <div style={{ position: "fixed", bottom: "5%", right: "-180px", width: "500px", height: "700px", background: "radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, rgba(2, 2, 4, 0) 70%)", filter: "blur(100px)", pointerEvents: "none", zIndex: 1, animation: "smokeFlowRight 14s infinite ease-in-out" }} />
 
@@ -203,178 +197,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CERTIFICATES TAB (DIRECT HTML LINK FIX FOR 100% RELIABLE OPENING) */}
+      {/* CERTIFICATES TAB */}
       {activeTab === 'certificates' && (
         <section style={{ position: "relative", zIndex: 10, maxWidth: "1200px", margin: "35px auto" }}>
           
-          <div style={{ display: "flex", justifyContent: "center", gap: "10px", flexWrap: "wrap", marginBottom: "30px" }}>
-            {[
-              { id: 'all', name: 'Të Gjitha (15)' },
-              { id: 'security', name: 'Cybersecurity & Crypto' },
-              { id: 'network', name: 'Networking & Web' },
-              { id: 'hardware', name: 'Hardware & Diagnostics' },
-              { id: 'systems', name: 'Systems & Software' }
-            ].map(cat => (
-              <button key={cat.id} onClick={() => setSelectedCertCategory(cat.id)} style={{ backgroundColor: selectedCertCategory === cat.id ? "#10b981" : "rgba(255,255,255,0.05)", color: "#ffffff", border: "1px solid " + (selectedCertCategory === cat.id ? "#10b981" : "rgba(255,255,255,0.1)"), padding: "8px 16px", borderRadius: "20px", cursor: "pointer", fontSize: "11px", fontWeight: "700" }}>
-                {cat.name}
-              </button>
-            ))}
-          </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "20px" }}>
-            {filteredCerts.map((cert) => (
-              <div key={cert.id} style={{ backgroundColor: "rgba(255,255,255,0.02)", border: "1px solid rgba(16, 185, 129, 0.25)", borderRadius: "14px", padding: "22px", display: "flex", flexDirection: "column", justifyContent: "space-between", backdropFilter: "blur(10px)" }}>
-                <div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "12px" }}>
-                    <span style={{ backgroundColor: "rgba(16, 185, 129, 0.15)", color: "#34d399", border: "1px solid rgba(16, 185, 129, 0.3)", padding: "3px 8px", borderRadius: "6px", fontSize: "10px", fontWeight: "800" }}>
-                      VERIFIED CERTIFICATE
-                    </span>
-                    <span style={{ color: "#94a3b8", fontSize: "11px", fontWeight: "700" }}>{cert.date}</span>
-                  </div>
-
-                  <h3 style={{ margin: "8px 0 4px 0", fontSize: "16px", color: "#ffffff", fontWeight: "800" }}>
-                    {cert.title}
-                  </h3>
-
-                  <p style={{ margin: "0 0 12px 0", fontSize: "12px", color: "#c4b5fd", fontWeight: "700" }}>
-                    {cert.issuer}
-                  </p>
-
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "20px" }}>
-                    {cert.tags.map((t, idx) => (
-                      <span key={idx} style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", color: "#cbd5e1", padding: "2px 7px", borderRadius: "4px", fontSize: "9px" }}>
-                        #{t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* NATIVE ANCHOR TAG THAT SHYPASSES POPUP BLOCKERS */}
-                <a 
-                  href={cert.pdfPath}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ display: "block", textAlign: "center", background: "#10b981", color: "#ffffff", textDecoration: "none", border: "none", padding: "10px", borderRadius: "8px", fontSize: "12px", fontWeight: "800", boxShadow: "0 0 12px rgba(16, 185, 129, 0.3)" }}
-                >
-                  [ HAP CERTIFIKATËN PDF ↗ ]
-                </a>
-              </div>
-            ))}
-          </div>
-
-        </section>
-      )}
-
-      {/* OVERVIEW TAB */}
-      {activeTab === 'overview' && (
-        <section style={{ position: "relative", zIndex: 10, maxWidth: "1100px", margin: "35px auto" }}>
-          <div style={{ backgroundColor: "rgba(255, 255, 255, 0.02)", border: "1px solid rgba(255, 255, 255, 0.08)", borderRadius: "16px", padding: "30px", backdropFilter: "blur(12px)" }}>
-            
-            <h3 style={{ fontSize: "22px", margin: "0 0 15px 0", color: "#c4b5fd", fontWeight: "800" }}>
-              Rreth Egzon Kalisit // Professional Overview
-            </h3>
-
-            <p style={{ fontSize: "14px", lineHeight: "1.8", color: "#cbd5e1", margin: "0 0 25px 0" }}>
-              Jam me bazë në Shkup dhe zotëroj përvojë profesionale në fushat e <strong>IT Support Specialist & Help Desk</strong>, <strong>Junior Network Engineer (L1) & Web Administrator</strong>, si dhe <strong>Hardware Maintenance & Assembly (L2)</strong>. Zotëroj 15 certifikata zyrtare kompjuterike nga institucione si <i>Cisco Networking Academy</i>, <i>EIT Digital</i> dhe <i>Saylor Academy / University</i>.
-            </p>
-
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px" }}>
-              <div style={{ backgroundColor: "rgba(168, 85, 247, 0.1)", border: "1px solid rgba(168, 85, 247, 0.25)", padding: "20px", borderRadius: "12px" }}>
-                <h4 style={{ margin: "0 0 10px 0", color: "#c4b5fd", fontSize: "15px" }}>🛠️ Help Desk & Hardware Support (L2)</h4>
-                <p style={{ margin: 0, fontSize: "12px", color: "#94a3b8", lineHeight: "1.6" }}>
-                  Diagnozë kompjuterike në nivel hardware, montim kompjuterësh, zgjidhje problemesh softuerike dhe asistencë teknike për përdoruesit.
-                </p>
-              </div>
-
-              <div style={{ backgroundColor: "rgba(16, 185, 129, 0.1)", border: "1px solid rgba(16, 185, 129, 0.25)", padding: "20px", borderRadius: "12px" }}>
-                <h4 style={{ margin: "0 0 10px 0", color: "#34d399", fontSize: "15px" }}>🌐 Network L1 & Web Administration</h4>
-                <p style={{ margin: 0, fontSize: "12px", color: "#94a3b8", lineHeight: "1.6" }}>
-                  Konfigurimi i switch-ave/router-ave Cisco, protokollat TCP/IP, administrimi i ueb-serverëve (cPanel, Nginx), DNS dhe SSL.
-                </p>
-              </div>
-            </div>
-
-          </div>
-        </section>
-      )}
-
-      {/* SKILLS TAB */}
-      {activeTab === 'skills' && (
-        <section style={{ position: "relative", zIndex: 10, maxWidth: "1100px", margin: "35px auto" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "22px" }}>
-            {skillCategories.map((cat, idx) => (
-              <div key={idx} style={{ backgroundColor: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "14px", padding: "25px", backdropFilter: "blur(10px)" }}>
-                <h3 style={{ margin: "0 0 18px 0", color: "#60a5fa", fontSize: "16px", fontWeight: "800" }}>
-                  {cat.category}
-                </h3>
-
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "15px" }}>
-                  {cat.skills.map((s, sIdx) => (
-                    <div key={sIdx} style={{ backgroundColor: "rgba(255,255,255,0.02)", padding: "12px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.04)" }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "6px", color: "#f1f5f9", fontWeight: "600" }}>
-                        <span>{s.name}</span>
-                        <span style={{ color: "#34d399", fontWeight: "800" }}>{s.level}</span>
-                      </div>
-                      <div style={{ width: "100%", backgroundColor: "rgba(255,255,255,0.08)", height: "6px", borderRadius: "3px", overflow: "hidden" }}>
-                        <div style={{ width: s.level, background: "linear-gradient(90deg, #2563eb, #34d399)", height: "100%", borderRadius: "3px" }} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* EXPERIENCE TAB */}
-      {activeTab === 'experience' && (
-        <section style={{ position: "relative", zIndex: 10, maxWidth: "1100px", margin: "35px auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "20px" }}>
-            {experiences.map((exp, idx) => (
-              <div key={idx} style={{ backgroundColor: "rgba(255,255,255,0.02)", border: "1px solid rgba(217, 119, 6, 0.25)", borderRadius: "14px", padding: "22px", backdropFilter: "blur(10px)" }}>
-                <span style={{ color: "#fbbf24", fontSize: "10px", fontWeight: "800", textTransform: "uppercase" }}>
-                  {exp.period}
-                </span>
-                <h3 style={{ margin: "6px 0 4px 0", fontSize: "17px", color: "#ffffff", fontWeight: "800" }}>
-                  {exp.title}
-                </h3>
-                <div style={{ color: "#c4b5fd", fontSize: "12px", fontWeight: "700", marginBottom: "12px" }}>
-                  {exp.role}
-                </div>
-                <p style={{ margin: 0, color: "#94a3b8", fontSize: "12px", lineHeight: "1.6" }}>
-                  {exp.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* CONTACT TAB */}
-      {activeTab === 'contact' && (
-        <section style={{ position: "relative", zIndex: 10, maxWidth: "500px", margin: "40px auto", textAlign: "center" }}>
-          <div style={{ backgroundColor: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "18px", padding: "32px", backdropFilter: "blur(12px)" }}>
-            <h3 style={{ margin: "0 0 12px 0", fontSize: "22px", color: "#ffffff", fontWeight: "900" }}>Get In Touch</h3>
-            <p style={{ color: "#94a3b8", fontSize: "13px", marginBottom: "18px" }}>Email Zyrtar për Kontakt / Projektime IT:</p>
-            
-            <div style={{ backgroundColor: "rgba(255,255,255,0.04)", padding: "14px", borderRadius: "10px", fontSize: "16px", color: "#60a5fa", fontWeight: "800", marginBottom: "20px", border: "1px solid rgba(96, 165, 250, 0.25)" }}>
-              info@egzonkalisi.com
-            </div>
-
-            <a href="mailto:info@egzonkalisi.com?subject=IT Technical Inquiry for Egzon Kalisi" style={{ display: "block", background: "#2563eb", color: "#ffffff", padding: "12px", borderRadius: "8px", textDecoration: "none", fontSize: "13px", fontWeight: "800", boxShadow: "0 0 18px rgba(37, 99, 235, 0.4)" }}>
-              Dërgo Mesazh Menjëherë ↗
-            </a>
-          </div>
-        </section>
-      )}
-
-      {/* FOOTER */}
-      <footer style={{ position: "relative", zIndex: 10, borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "20px", marginTop: "50px", textAlign: "center", color: "#64748b", fontSize: "11px" }}>
-        Egzon Kalisi &copy; 2026 // IT Support Specialist & Network Engineer
-      </footer>
-
-    </div>
-  )
-}
+          <div style={{ display:
